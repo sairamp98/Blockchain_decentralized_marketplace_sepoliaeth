@@ -52,7 +52,7 @@ Ensure you have the following installed:
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth
-   cd marketplace-dapp
+   cd my-app
 2. **Install NPM packages for the frontend:**
    ```sh
    npm install
