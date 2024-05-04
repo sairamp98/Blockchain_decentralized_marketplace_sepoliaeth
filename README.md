@@ -75,7 +75,7 @@ The app allows users to list and purchase items in a decentralized manner. Users
 <!-- USAGE EXAMPLES -->
 ## How to Use
 **Frontend**
-The frontend is built with Next.js and Material-UI. It interacts with the Ethereum network using ethers.js.
+The frontend is built with Next.js and Tailwind CSS. It interacts with the Ethereum network using ethers.js.
 
 * Navigating the App: The frontend supports features like viewing listed items, connecting to an Ethereum wallet, and managing purchases.
 **Smart Contract**
