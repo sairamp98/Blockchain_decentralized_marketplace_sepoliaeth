@@ -56,7 +56,7 @@ Ensure you have the following installed:
 2. **Install NPM packages for the frontend:**
    ```sh
    npm install
-   npm install ether
+   npm install ethers
    npm install axios
 3. **Environment Setup:**
    * Create a .env.local file in the root of your frontend directory and add your pinata API and secret keys for security purposes. (However, I hardcoded them as this is non-confidential data)
