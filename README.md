@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div id="top"></div>
 
+<!-- ABOUT THE PROJECT -->
+## Decentralized Marketplace App
+
+![Marketplace Screenshot](https://user-images.githubusercontent.com/83681204/156659942-75f846d0-eb92-44d9-9bf0-c8d80082e3dd.png)
+
+This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in a trustless environment. Despite listing prices in USD to avoid crypto market volatility, all transactions are conducted in cryptocurrencies like ETH or MATIC, with every step of the transaction controlled by the Marketplace smart contract.
+
+### Built With
+
+* [Next.js](https://nextjs.org/)
+* [Solidity](https://docs.soliditylang.org/)
+* [ethers.js](https://docs.ethers.io/v5/)
+* [IPFS](https://ipfs.io/)
+* [Material-UI](https://mui.com/getting-started/installation/)
+* [Web3Modal](https://github.com/Web3Modal/web3modal)
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-it-works">How it Works</a></li>
+    <li>
+      <a href="#usage">How to Use</a>
+      <ul>
+        <li><a href="#frontend">Frontend</a></li>
+        <li><a href="#smart-contract">Smart Contract</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have the following installed:
+* [Node.js and npm](https://nodejs.org/en/download/)
+* [MetaMask](https://metamask.io/) (or another Ethereum wallet) as a browser extension
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourgithubusername/marketplace-dapp.git
+   cd marketplace-dapp
