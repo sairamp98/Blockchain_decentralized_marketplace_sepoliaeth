@@ -1,7 +1,7 @@
 <div id="top"></div>
 
 <!-- ABOUT THE PROJECT -->
-## Decentralized Marketplace App
+## Decentralized Marketplace App- LEGO LAND
 
 
 This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in a trustless environment. Despite listing prices in USD to avoid crypto market volatility, all transactions are conducted in cryptocurrencies like ETH or MATIC, with every step of the transaction controlled by the Marketplace smart contract.
@@ -54,3 +54,44 @@ Ensure you have the following installed:
    ```sh
    git clone https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth
    cd marketplace-dapp
+2. **Install NPM packages for the frontend:**
+   ```sh
+   cd frontend
+   npm install
+3. **Environment Setup:**
+   Create a .env.local file in the root of your frontend directory and add your pinata API and secret keys for security purposes. (However, I hardcoded them as this is non-confidential data)
+   Once you create your contract in solidity, make sure to change the contract address in constants.json with your contract address and replace the content of Transactions.json with the contents of your abi file downloaded from Remix IDE or the abi file that you may obtain from your solidity compiler.
+4. **Start the development server:**
+   ```sh
+   npm run dev
+<!-- HOW IT WORKS -->
+## How it Works
+The app allows users to list and purchase items in a decentralized manner. Users can list items with a USD price tag, but transactions are processed in ETH or another specified cryptocurrency. The smart contract ensures that all transactions are secure and executed as per the encoded rules.
+
+**Key Features:**
+* Item Listing: Users can list items with detailed descriptions and set prices in ETH.
+* Purchasing Items: Transactions are secure and handled through smart contracts, ensuring that funds are transferred only upon confirmed delivery.
+
+<!-- USAGE EXAMPLES -->
+## How to Use
+**Frontend**
+The frontend is built with Next.js and Material-UI. It interacts with the Ethereum network using ethers.js.
+
+* Navigating the App: The frontend supports features like viewing listed items, connecting to an Ethereum wallet, and managing purchases.
+**Smart Contract**
+Written in Solidity, the smart contract handles all backend logic on the blockchain.
+
+**Functions:**
+* listItem: To list a new item.
+* purchaseItem: To handle the purchase transactions.
+
+<!-- CONTACT -->
+## Contact
+For any queries or further information, please email Your Email.
+
+<!-- LICENSE -->
+## License
+This project is licensed under the MIT License - see the LICENSE.txt file for details.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
