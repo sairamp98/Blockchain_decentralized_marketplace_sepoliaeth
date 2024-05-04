@@ -78,14 +78,14 @@ The app allows users to list and purchase items in a decentralized manner. Users
 The frontend is built with Next.js and Tailwind CSS. It interacts with the Ethereum network using ethers.js.
 
 * Navigating the App: The frontend supports features like viewing listed items, connecting to an Ethereum wallet, and managing purchases.
-**Smart Contract**
+**Smart Contract:**
 Written in Solidity, the smart contract handles all backend logic on the blockchain.
 
 **Functions:**
 * listItem: To list a new item.
 * purchaseItem: To handle the purchase transactions.
 
-**Deploying**
+**Deployment:**
 * You can push your code to git using the following commands.
   ```sh
   npm run build
