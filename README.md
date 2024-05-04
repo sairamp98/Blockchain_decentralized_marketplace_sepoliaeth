@@ -12,9 +12,7 @@ This decentralized marketplace is designed for Ethereum and other EVM-compatible
 * [Next.js](https://nextjs.org/)
 * [Solidity](https://docs.soliditylang.org/)
 * [ethers.js](https://docs.ethers.io/v5/)
-* [IPFS](https://ipfs.io/)
-* [Material-UI](https://mui.com/getting-started/installation/)
-* [Web3Modal](https://github.com/Web3Modal/web3modal)
+* [IPFS](https://www.pinata.cloud/)
 
 <details>
   <summary>Table of Contents</summary>
