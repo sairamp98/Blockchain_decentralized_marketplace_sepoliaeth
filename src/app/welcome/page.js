@@ -1,30 +1,35 @@
 // https://docs.metamask.io/guide/ethereum-provider.html#using-the-provider
+// Using client-side rendering for this component to ensure Ethereum object is available in window.
 "use client"
 import React, { useState } from 'react';
-import { ethers } from "ethers";
-import { contractABI, contractAddress } from '../../../utils/constants';
-import Link from 'next/link';
-import Image from 'next/image';
+import { ethers } from "ethers";//Importing ethers to interact with Ethereum.
+import { contractABI, contractAddress } from '../../../utils/constants'; // Importing contract ABI and address utilities.
+import Link from 'next/link'; // Link component for client-side navigation.
+import Image from 'next/image'; // Next.js Image component for optimized image handling.
 
+// WalletCard functional component for wallet interaction functionality.
 const WalletCard = () => {
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [defaultAccount, setDefaultAccount] = useState(null);
-    const [connButtonText, setConnButtonText] = useState('Metamask check');
+    const [errorMessage, setErrorMessage] = useState(null); // State for storing error messages.
+    const [defaultAccount, setDefaultAccount] = useState(null); // State for storing the user's default Ethereum account.
+    const [connButtonText, setConnButtonText] = useState('Metamask check'); // State for the connect button text.
 
+    // Handler for connecting to MetaMask wallet.
     const connectWalletHandler = async () => {
-        if (window.ethereum && window.ethereum.isMetaMask) {
+        if (window.ethereum && window.ethereum.isMetaMask) { // Check if MetaMask is installed.
             try {
+                // Requesting accounts access.
                 const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-                setDefaultAccount(accounts[0]);
-                setConnButtonText('Wallet Connected');
+                setDefaultAccount(accounts[0]); // Set the first account as the default.
+                setConnButtonText('Wallet Connected'); // Update button text to show successful connection.
             } catch (error) {
-                setErrorMessage(error.message);
+                setErrorMessage(error.message); // Handle errors by setting the error message state.
             }
         } else {
-            setErrorMessage('Please install MetaMask browser extension to interact');
+            setErrorMessage('Please install MetaMask browser extension to interact'); // Error message if MetaMask is not installed.
         }
     };
     
+    // Component layout using Tailwind CSS for styling.
     return (
         <div className="flex items-center justify-center min-h-screen" style={{ position: "relative", zIndex: 1, fontFamily: 'font-mono' }}>
             <div style={{
@@ -66,4 +71,4 @@ const WalletCard = () => {
     );
 }
 
-export default WalletCard;
+export default WalletCard; // Exporting the component for use in other parts of the application.

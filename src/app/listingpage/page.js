@@ -1,11 +1,13 @@
-"use client"
-import React, { useState, useRef } from 'react';
-import { ethers } from 'ethers';
-import axios from 'axios';
-import { contractABI, contractAddress } from '../../../utils/constants';
-import Image from 'next/image';
+"use client" // Ensures the code runs only on the client-side where the Ethereum object is accessible.
+import React, { useState, useRef } from 'react';  // React hooks for managing state and references.
+import { ethers } from 'ethers';  // Ethers.js library for interacting with the Ethereum blockchain.
+import axios from 'axios';  // Axios for making HTTP requests.
+import { contractABI, contractAddress } from '../../../utils/constants';  // Importing contract details.
+import Image from 'next/image';  // Optimized image component from Next.js.
 
+// WalletCard component definition.
 const WalletCard = () => {
+    // State hooks to manage form inputs and application state.
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -13,52 +15,55 @@ const WalletCard = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const fileInputRef = useRef(null); // Reference to the file input
+    const fileInputRef = useRef(null); // Ref for the file input element to reset it after form submission.
 
+    // Handles image file selection.
     const onImageChange = (event) => {
-        setImage(event.target.files[0]);
+        setImage(event.target.files[0]); // Set the selected file into state.
     };
 
+    // Function to upload the selected image to Pinata (IPFS service).
     const uploadImageToPinata = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
+        const formData = new FormData(); // FormData to handle file upload.
+        formData.append('file', file); // Append file to FormData.
         try {
             const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'pinata_api_key': '196610ea044c426509d0',
-                    'pinata_secret_api_key': '891b09da0a2a97b1e1a2ca2d9d4b30fe443ea2a80c1ed9289417126333942b87',
+                    'pinata_api_key': '196610ea044c426509d0', // Your Pinata API key.
+                    'pinata_secret_api_key': '891b09da0a2a97b1e1a2ca2d9d4b30fe443ea2a80c1ed9289417126333942b87', // Your Pinata secret API key.
                 },
             });
-            return response.data.IpfsHash;
+            return response.data.IpfsHash;  // Return the IPFS hash of the uploaded file.
         } catch (error) {
             console.error('Error uploading image to Pinata: ', error);
             setErrorMessage('Failed to upload image to Pinata.');
             return null;
         }
     };
-
+    // Function to handle form submission.
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Prevent default form submission behavior.
         if (!window.ethereum || !window.ethereum.isMetaMask) {
-            setErrorMessage('MetaMask is not detected.');
+            setErrorMessage('MetaMask is not detected.'); // Check for MetaMask
             return;
         }
 
-        setIsLoading(true);
-        const ipfsHash = await uploadImageToPinata(image);
+        setIsLoading(true); // Set loading state to true.
+        const ipfsHash = await uploadImageToPinata(image); // Upload image and get IPFS hash.
         if (!ipfsHash) {
-            setIsLoading(false);
+            setIsLoading(false); // If upload fails, stop loading.
             return;
         }
 
         try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const marketplaceContract = new ethers.Contract(contractAddress, contractABI, signer);
-            const transaction = await marketplaceContract.listItem(title, description, ipfsHash, ethers.utils.parseUnits(price, 'ether'));
-            await transaction.wait();
-            setSuccessMessage('Item listed successfully!');
+            const provider = new ethers.providers.Web3Provider(window.ethereum); // Create a provider.
+            const signer = provider.getSigner(); // Get the signer from the provider.
+            const marketplaceContract = new ethers.Contract(contractAddress, contractABI, signer); // Instantiate the contract.
+            const transaction = await marketplaceContract.listItem(title, description, ipfsHash, ethers.utils.parseUnits(price, 'ether')); // Send transaction to list the item.
+            await transaction.wait(); // Wait for transaction to be mined.
+            setSuccessMessage('Item listed successfully!'); // Set success message.
+            // Reset all form fields and states.
             setTitle('');
             setDescription('');
             setPrice('');
@@ -66,15 +71,15 @@ const WalletCard = () => {
             if (fileInputRef.current) {
                 fileInputRef.current.value = ''; // Properly clear the file input
             }
-            setTimeout(() => { setSuccessMessage(''); }, 3000);
+            setTimeout(() => { setSuccessMessage(''); }, 3000); // Clear success message after 3 seconds.
         } catch (error) {
-            console.error('Error processing transaction: ', error);
+            console.error('Error processing transaction: ', error); // Set error message.
             setErrorMessage('Transaction failed: ' + error.message);
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // Set loading state to false regardless of transaction outcome.
         }
     };
-
+    // Component rendering logic.
     return (
         <div className='flex items-center justify-center h-screen' style={{ position: "relative", zIndex: 1, fontFamily: 'font-mono' }}>
             <div style={{
@@ -89,7 +94,7 @@ const WalletCard = () => {
                     src="/lego.jpg"
                     layout="fill"
                     objectFit="cover"
-                    priority
+                    priority // Prioritizes loading of the background image.
                 />
             </div>
             <div className='bg-stone-50 rounded-lg shadow-4xl shadow-inner shadow hover:shadow-lg p-12 max-w-2xl w-full' style={{ borderRadius: '30px', boxShadow: '0 10px 90px rgba(0, 0, 0, 0.5)' }}>
@@ -133,4 +138,4 @@ const WalletCard = () => {
     );
 };
 
-export default WalletCard;
+export default WalletCard; // Export the component for use in other parts of the application.

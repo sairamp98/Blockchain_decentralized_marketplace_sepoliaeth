@@ -1,51 +1,58 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
-import { contractABI, contractAddress } from '../../../utils/constants';
-import Image from 'next/image';
+"use client" // Ensures the component runs only on the client side where the window object is accessible.
+import React, { useEffect, useState } from 'react'; // Imports necessary hooks from React for managing state and lifecycle.
+import { ethers } from 'ethers'; // Import ethers to interact with Ethereum blockchain.
+import { contractABI, contractAddress } from '../../../utils/constants'; // Importing ABI and contract address.
+import Image from 'next/image'; // Next.js optimized image component for better performance and SEO.
 
 const MarketplaceDisplay = () => {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([]); // State to hold items fetched from the blockchain.
 
     useEffect(() => {
+        // Asynchronously fetch items from the blockchain and parse them.
         const fetchItems = async () => {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
+            const provider = new ethers.providers.Web3Provider(window.ethereum); // Connects to Ethereum network via MetaMask.
+            const contract = new ethers.Contract(contractAddress, contractABI, provider); // Instantiates the contract.
+            
+            // Fetch event logs related to items being listed using the contract's filters.
             const itemListedFilter = contract.filters.ItemListed();
             const logs = await provider.getLogs({ ...itemListedFilter, fromBlock: 0 });
             const parsedLogs = logs.map(log => ({
                 ...contract.interface.parseLog(log).args,
-                transactionHash: log.transactionHash
+                transactionHash: log.transactionHash // Store transaction hash for each log.
             }));
 
+            // Fetch all items from the smart contract.
             const items = await contract.getAllItems();
+            // Format items with additional details for display.
             const itemsFormatted = items.map(item => ({
                 id: item.id.toNumber(),
                 title: item.title,
                 imageHash: item.imageHash,
-                price: ethers.utils.formatEther(item.price),
+                price: ethers.utils.formatEther(item.price), // Convert price from wei to ether.
                 sold: item.sold,
                 description: item.description,
                 transactionHash: parsedLogs.find(log => log.itemId.toNumber() === item.id.toNumber()).transactionHash
             }));
             
-            setItems(itemsFormatted);
+            setItems(itemsFormatted); // Update state with formatted items.
         };
 
-        fetchItems();
+        fetchItems(); // Invoke fetch function.
     }, []);
 
+    // Handle clicking on a card, directing to a detailed view if the item is not sold.
     const handleCardClick = (item) => {
         if (!item.sold) {
             window.location.href = `/item_details?title=${encodeURIComponent(item.title)}&imageHash=${encodeURIComponent(item.imageHash)}&price=${encodeURIComponent(item.price)}&sold=${item.sold}&description=${encodeURIComponent(item.description)}&id=${item.id}`;
         }
     };
 
+    // Handle clicking the contract address button, redirecting to Etherscan.
     const handleContractAddressClick = () => {
         window.location.href = `https://sepolia.etherscan.io/address/0xcdfaa17c5ffccd519b9d56eee372a91406ce7f25`; // Redirect to Etherscan page of the contract
     };
 
+    // Component rendering logic.
     return (
         <div>
             <div style={{
@@ -60,7 +67,7 @@ const MarketplaceDisplay = () => {
                     src="/lego.jpg"
                     layout="fill"
                     objectFit="cover"
-                    priority
+                    priority // Marks the image as high priority to load earlier.
                 />
             </div>
             <div className="container mx-auto px-4">
@@ -92,4 +99,4 @@ const MarketplaceDisplay = () => {
     );
 };
 
-export default MarketplaceDisplay;
+export default MarketplaceDisplay; // Export the component for use in other parts of the application.
