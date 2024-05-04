@@ -3,10 +3,12 @@ import React, { useState, Suspense } from 'react';
 import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../../../utils/constants";
 import { useSearchParams } from "next/navigation";
+import Image from 'next/image';
 
 const ItemDetails = () => {
     const [isBuying, setIsBuying] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [transactionHash, setTransactionHash] = useState('');
     const [buttonText, setButtonText] = useState('Buy Item');
 
     const buyItem = async (id, price) => {
@@ -25,10 +27,11 @@ const ItemDetails = () => {
             const new_price = ethers.utils.parseUnits(price.toString(), "ether");
 
             const transaction = await contract.buyItem(id, {value: new_price});
-            await transaction.wait();
+            const receipt = await transaction.wait();
 
-            setIsBuying(false);
-            setTimeout(() => window.location.href = '/buying', 3000);  // Redirect after success message
+            setTransactionHash(receipt.transactionHash);
+            setButtonText('Sold Out');
+            setIsBuying(true); // Keep button disabled
         } catch (error) {
             console.error('Transaction failed:', error);
             setErrorMessage('Transaction failed. Please try again.');
@@ -37,7 +40,6 @@ const ItemDetails = () => {
         }
     };
 
-    // Suspense for useSearchParams
     const SearchParamsComponent = () => {
         const searchParams = useSearchParams();
         const title = searchParams.get('title');
@@ -45,26 +47,42 @@ const ItemDetails = () => {
         const price = searchParams.get('price');
         const imageHash = searchParams.get('imageHash');
         const id = searchParams.get('id');
-        
+
         return (
             <React.Fragment>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{title}</h1>
+                <h1 className="text-3xl font-bold font-mono text-gray-800 mb-2">{title}</h1>
                 <img src={`https://gateway.pinata.cloud/ipfs/${imageHash}`} alt={title} className="rounded w-full object-cover h-64 mb-2" />
-                <p className="text-gray-600 mb-2">{description}</p>
-                <p className="text-xl text-gray-900 mb-4">{price} ETH</p>
+                <p className="text-gray-600 font-mono mb-2">{description}</p>
+                <p className="text-xl font-mono text-gray-900 mb-4">Price: {price} ETH</p>
                 <button 
-                    className={`w-full py-2 px-4 text-white font-bold rounded ${isBuying ? 'bg-gray-400' : 'bg-purple-500 hover:bg-purple-400'}`}
+                    className={`w-full py-2 px-4 text-white font-mono font-bold rounded ${isBuying ? 'bg-gray-400' : 'bg-purple-500 hover:bg-purple-400'}`}
                     onClick={() => buyItem(id, price)} 
                     disabled={isBuying}>
                     {buttonText}
                 </button>
+                {transactionHash && <p className="text-green-500 text-center mt-2">Purchase successful! Transaction ID: {transactionHash}</p>}
             </React.Fragment>
         );
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-800 p-6">
-            <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-4">
+        <div className="flex items-center justify-center min-h-screen" style={{ position: "relative", zIndex: 1 }}>
+            <div style={{
+                    zIndex: -1,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh"
+                }}>
+                <Image
+                    src="/lego.jpg"
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                />
+            </div>
+            <div className='bg-stone-50 rounded-lg shadow-4xl p-10 max-w-2xl w-full' style={{ borderRadius: '30px', boxShadow: '0 10px 90px rgba(0, 0, 0, 0.7)' }}>
                 <Suspense fallback={<p>Loading details...</p>}>
                     <SearchParamsComponent />
                 </Suspense>

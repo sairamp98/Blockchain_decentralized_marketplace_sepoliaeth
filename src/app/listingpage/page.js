@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { contractABI, contractAddress } from '../../../utils/constants';
+import Image from 'next/image';
 
 const WalletCard = () => {
     const [title, setTitle] = useState('');
@@ -75,42 +76,57 @@ const WalletCard = () => {
     };
 
     return (
-        <div className='flex items-center justify-center h-screen bg-gradient-to-r from-gray-800 to-black'>
-            <div className='bg-white rounded-lg shadow-lg p-6 w-full max-w-lg'>
+        <div className='flex items-center justify-center h-screen' style={{ position: "relative", zIndex: 1, fontFamily: 'font-mono' }}>
+            <div style={{
+                zIndex: -1,
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh"
+            }}>
+                <Image
+                    src="/lego.jpg"
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                />
+            </div>
+            <div className='bg-stone-50 rounded-lg shadow-4xl shadow-inner shadow hover:shadow-lg p-12 max-w-2xl w-full' style={{ borderRadius: '30px', boxShadow: '0 10px 90px rgba(0, 0, 0, 0.5)' }}>
                 {successMessage && (
-                    <div className="success bg-green-500 text-white p-4 mb-4 text-center font-bold rounded">
+                    <div className="success bg-green-500 text-white p-4 mb-4 text-center font-mono font-bold rounded">
                         {successMessage}
                     </div>
                 )}
-                <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">List Your Item in the Marketplace</h2>
+                <h2 className="text-3xl font-bold font-mono text-gray-800 text-center mb-6">List Your Collection to the Lego Land</h2>
                 <form onSubmit={handleSubmit} className="w-full">
                     <div className="mb-4">
-                        <label htmlFor="image-upload" className="block text-gray-800 font-bold mb-2">Upload Image</label>
-                        <input type="file" ref={fileInputRef} onChange={onImageChange} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
+                        <label htmlFor="image-upload" className="block text-gray-800 font-mono font-bold mb-2"> Upload Image</label>
+                        <input type="file" ref={fileInputRef} onChange={onImageChange} className="bg-gray-200 appearance-none font-mono border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-800 font-bold mb-2" htmlFor="item-title">Title</label>
+                        <label className="block text-gray-800 font-mono font-bold mb-2" htmlFor="item-title">Title</label>
                         <input type="text" id="item-title" value={title} onChange={(e) => setTitle(e.target.value)}
-                               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Item Title" required />
+                               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 font-mono text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Item Title" required />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-800 font-bold mb-2" htmlFor="item-description">Description</label>
+                        <label className="block text-gray-800 font-mono font-bold mb-2" htmlFor="item-description">Description</label>
                         <textarea id="item-description" value={description} onChange={(e) => setDescription(e.target.value)}
-                                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Item Description" required />
+                                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 font-mono leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Item Description" required />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-gray-800 font-bold mb-2" htmlFor="item-price">Price (ETH)</label>
+                        <label className="block text-gray-800 font-mono font-bold mb-2" htmlFor="item-price">Price (ETH)</label>
                         <input type="text" id="item-price" value={price} onChange={(e) => setPrice(e.target.value)}
-                               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Price in ETH" required />
+                               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 font-mono leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Price in ETH" required />
                     </div>
                     <div className="flex justify-center">
                         <button type="submit"
                                 disabled={isLoading}
-                                className={`shadow focus:shadow-outline focus:outline-none font-bold py-2 px-4 rounded ${isLoading ? 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed' : 'bg-purple-500 hover:bg-purple-400 text-white'}`}>
-                            {isLoading ? 'Processing...' : 'List Item'}
+                                className={`shadow focus:shadow-outline focus:outline-none font-bold py-2 px-4 rounded ${isLoading ? 'bg-gray-400 font-mono hover:bg-gray-400 cursor-not-allowed' : 'bg-purple-500 font-mono hover:bg-purple-400 text-white'}`}>
+                            {isLoading ? 'Processing...' : 'List to Lego Land'}
                         </button>
                     </div>
-                    {errorMessage && <p className="error text-red-500 text-center mt-4">{errorMessage}</p>}
+                    {errorMessage && <p className="error text-red-500 font-mono text-center mt-4">{errorMessage}</p>}
                 </form>
             </div>
         </div>
