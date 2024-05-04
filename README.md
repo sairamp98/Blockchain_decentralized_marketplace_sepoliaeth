@@ -7,6 +7,8 @@
 
 This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in an anonymous environment. All transactions are conducted in cryptocurrencies like ETH, with every step of the transaction controlled by the Marketplace smart contract.
 
+[Follow this Link to check out the marketplace](https://chipper-mermaid-b6aa78.netlify.app/welcome)
+
 ### Built With
 
 * [Next.js](https://nextjs.org/)
@@ -101,11 +103,6 @@ Written in Solidity, the smart contract handles all backend logic on the blockch
 ![image](https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth/assets/165452102/b2111373-87f1-484e-823d-e2d2760f66ca)
 ![image](https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth/assets/165452102/e5e90b51-bda3-41e2-b532-10bca267de4d)
 ![image](https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth/assets/165452102/67efdcd9-8e26-4a1a-a2d4-01aa2cba4047)
-
-
-<!-- CONTACT -->
-## Contact
-For any queries or further information, please email Your Email.
 
 <!-- LICENSE -->
 ## License
