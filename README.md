@@ -3,7 +3,6 @@
 <!-- ABOUT THE PROJECT -->
 ## Decentralized Marketplace App
 
-![Marketplace Screenshot](https://user-images.githubusercontent.com/83681204/156659942-75f846d0-eb92-44d9-9bf0-c8d80082e3dd.png)
 
 This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in a trustless environment. Despite listing prices in USD to avoid crypto market volatility, all transactions are conducted in cryptocurrencies like ETH or MATIC, with every step of the transaction controlled by the Marketplace smart contract.
 
