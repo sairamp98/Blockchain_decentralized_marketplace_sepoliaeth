@@ -52,5 +52,5 @@ Ensure you have the following installed:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourgithubusername/marketplace-dapp.git
+   git clone https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth
    cd marketplace-dapp
