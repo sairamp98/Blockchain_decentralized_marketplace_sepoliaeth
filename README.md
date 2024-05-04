@@ -56,8 +56,9 @@ Ensure you have the following installed:
    cd marketplace-dapp
 2. **Install NPM packages for the frontend:**
    ```sh
-   cd frontend
    npm install
+   npm install ether
+   npm install axios
 3. **Environment Setup:**
    Create a .env.local file in the root of your frontend directory and add your pinata API and secret keys for security purposes. (However, I hardcoded them as this is non-confidential data)
    Once you create your contract in solidity, make sure to change the contract address in constants.json with your contract address and replace the content of Transactions.json with the contents of your abi file downloaded from Remix IDE or the abi file that you may obtain from your solidity compiler.
