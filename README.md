@@ -5,7 +5,7 @@
 
 ![image](https://github.com/sairamp98/Blockchain_decentralized_marketplace_sepoliaeth/assets/165452102/80713b88-f764-4d2b-a6f7-e64403f513a0)
 
-This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in a trustless environment. Despite listing prices in USD to avoid crypto market volatility, all transactions are conducted in cryptocurrencies like ETH or MATIC, with every step of the transaction controlled by the Marketplace smart contract.
+This decentralized marketplace is designed for Ethereum and other EVM-compatible blockchains. It enables global users to securely buy and sell items in an anonymous environment. All transactions are conducted in cryptocurrencies like ETH, with every step of the transaction controlled by the Marketplace smart contract.
 
 ### Built With
 
