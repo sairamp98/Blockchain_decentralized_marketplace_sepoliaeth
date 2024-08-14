@@ -4,6 +4,9 @@ import { ethers } from 'ethers';  // Ethers.js library for interacting with the 
 import axios from 'axios';  // Axios for making HTTP requests.
 import { contractABI, contractAddress } from '../../../utils/constants';  // Importing contract details.
 import Image from 'next/image';  // Optimized image component from Next.js.
+const dotenv = require('dotenv');
+dotenv = dotenv.config();
+
 
 // WalletCard component definition.
 const WalletCard = () => {
@@ -30,8 +33,8 @@ const WalletCard = () => {
             const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'pinata_api_key': '196610ea044c426509d0', // Your Pinata API key.
-                    'pinata_secret_api_key': '891b09da0a2a97b1e1a2ca2d9d4b30fe443ea2a80c1ed9289417126333942b87', // Your Pinata secret API key.
+                    'pinata_api_key': process.env.PINATA_API_KEY , // Your Pinata API key.
+                    'pinata_secret_api_key': process.env.PINATA_SECRET_API, // Your Pinata secret API key.
                 },
             });
             return response.data.IpfsHash;  // Return the IPFS hash of the uploaded file.
